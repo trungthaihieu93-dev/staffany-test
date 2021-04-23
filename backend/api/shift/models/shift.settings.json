@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "shifts",
+  "info": {
+    "name": "shift"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "published"
+      ]
+    }
+  }
+}
