@@ -1,0 +1,11 @@
+.shiftItem {
+  background-color: #f9f9f9;
+  text-align: start;
+  margin-top: 20px;
+  cursor: pointer;
+  padding: 20px;
+}
+
+.shiftItem:hover {
+  background-color: aliceblue;
+}

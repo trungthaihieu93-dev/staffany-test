@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import useSWR from 'swr';
 
-import { useSwrErrorHandler } from 'hooks/useErrorHandler';
+import { useSwrErrorHandler } from './common/useErrorHandler';
 import { getShiftLink } from 'API/links';
 
 import { useGetFetcher } from 'API/utils';

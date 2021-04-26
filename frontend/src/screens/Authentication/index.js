@@ -8,7 +8,7 @@ import {
 } from 'antd';
 
 import './styles.css';
-import useHooks from './hooks';
+import useHooks from 'hooks/useAuthentication';
 
 const { Header, Footer, Content } = Layout;
 
@@ -54,7 +54,7 @@ export default function Authentication() {
   return (
     <Layout>
       <Header></Header>
-      <Content className="container">
+      <Content>
         <Form
           {...layout}
           name="basic"
