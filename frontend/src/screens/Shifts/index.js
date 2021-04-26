@@ -28,7 +28,7 @@ function Shifts() {
 
   const handleClick = useCallback((id) => {
     history.push(`${routes.shifts}/${id}`);
-  }, []);
+  }, [history]);
 
   return (
     <div className="container">

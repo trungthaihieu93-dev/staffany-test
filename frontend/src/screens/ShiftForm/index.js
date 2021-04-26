@@ -32,57 +32,62 @@ const ShiftForm = () => {
   const {
     state: {
       shift,
+      loading,
     },
     handler: {
       handleChangeForm,
       handleSubmit,
+      handleDelete,
     }
   } = useHooks(id);
 
   return (
     <Form
       {...layout}
-      name="basic"
+      name="shiftForm"
       initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
     >
       <Form.Item
         label="Name"
-        name="name"
         rules={[{ required: true, message: 'Please input shift name!' }]}
       >
         <Input
+          placeholder="Shift name..."
           value={shift[SHIFT_NAME]}
           onChange={(evt) => handleChangeForm(SHIFT_NAME, evt.target.value)}
         />
       </Form.Item>
       <Form.Item
         label="Date"
-        name="date"
         rules={[{ required: true, message: 'Please input your date!' }]}
       >
         <Input
+          type="date"
+          placeholder="Shift date..."
           value={shift[SHIFT_DATE]}
           onChange={(evt) => handleChangeForm(SHIFT_DATE, evt.target.value)}
         />
       </Form.Item>
       <Form.Item
         label="Start Time"
-        name="from"
         rules={[{ required: true, message: 'Please input start time!' }]}
       >
         <Input
+          type="time"
+          placeholder="Shift start time..."
           value={shift[SHIFT_START_TIME]}
           onChange={(evt) => handleChangeForm(SHIFT_START_TIME, evt.target.value)}
         />
       </Form.Item>
       <Form.Item
         label="End Time"
-        name="to"
         rules={[{ required: true, message: 'Please input end time!' }]}
       >
         <Input
+          type="time"
+          placeholder="Shift end time..."
           value={shift[SHIFT_END_TIME]}
           onChange={(evt) => handleChangeForm(SHIFT_END_TIME, evt.target.value)}
         />
@@ -93,6 +98,7 @@ const ShiftForm = () => {
           type="primary"
           htmlType="submit"
           onClick={handleSubmit}
+          loading={loading}
         >
           {id === 'new' ? 'Create' : 'Update'}
         </Button>
@@ -102,7 +108,8 @@ const ShiftForm = () => {
               style={{ marginLeft: '20px' }}
               type="danger"
               htmlType="submit"
-              onClick={null}
+              loading={loading}
+              onClick={handleDelete}
             >
               Delete
             </Button>
