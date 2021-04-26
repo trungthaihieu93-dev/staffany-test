@@ -3,42 +3,34 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Redirect,
 } from "react-router-dom";
 
-import Authorization from 'screens/Authorization';
+import { JWT } from 'constants/env';
+import { routes } from 'constants/routes';
+import Authentication from 'screens/Authentication';
+import Homepage from 'screens/Homepage';
+import Shifts from 'screens/Shifts';
+import ShiftForm from 'screens/ShiftForm';
 
 import 'styles/global.css';
 
 function App() {
+  const jwt = window.localStorage.getItem(JWT);
+
   return (
     <Router>
       <div className="App">
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Authorization</Link>
-            </li>
-            <li>
-              <Link to="/shifts">Shifts</Link>
-            </li>
-            <li>
-              <Link to="/update-shift">Update Shift</Link>
-            </li>
-          </ul>
-        </nav>
-
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/update-shift">
-            {() => <div>Update Shift</div>}
+          <Route path={routes.shifts}>
+            <Shifts />
           </Route>
-          <Route path="/shifts">
-            {() => <div>Shifts</div>}
+          <Route path={`${routes.shifts}/:id`} children={<ShiftForm />} />
+          <Route path={routes.home}>
+            <Homepage />
           </Route>
-          <Route path="/">
-            <Authorization />
+          <Route path="/" >
+            {jwt ? <Redirect to="/home" /> : <Authentication />}
           </Route>
         </Switch>
       </div>
