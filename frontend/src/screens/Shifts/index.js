@@ -22,7 +22,7 @@ function Shifts() {
       shiftsError,
     },
     handler: {
-
+      handlePublish,
     },
   } = useHooks();
 
@@ -33,11 +33,20 @@ function Shifts() {
   return (
     <div className="container">
       <div className="cols">
-        <Button
-          onClick={() => history.push(`${routes.shifts}/new`)}
-        >
-          + Add New Shift
+        <div className="buttons">
+          <Button
+            onClick={() => history.push(`${routes.shifts}/new`)}
+          >
+            + Add New Shift
+          </Button>
+          <Button
+            style={{ marginLeft: '20px' }}
+            type="primary"
+            onClick={handlePublish}
+          >
+            Publish
       </Button>
+        </div>
         {
           shifts || shiftsError
             ? shifts

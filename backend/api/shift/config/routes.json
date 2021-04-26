@@ -47,6 +47,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "GET",
+      "path": "/shifts/publish",
+      "handler": "shift.publish",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

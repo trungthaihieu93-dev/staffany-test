@@ -2,6 +2,7 @@ import fetcher, { handleResponse } from './';
 import {
   AUTH_ENDPOINT,
   SHIFT_ENDPOINT,
+  PUBLISH_SHIFT_ENDPOINT,
 } from './constants';
 
 // Authentication services
@@ -16,3 +17,6 @@ export const updateShift = (id, data) => handleResponse(fetcher(`${SHIFT_ENDPOIN
 
 export const deleteShift = (id) => handleResponse(fetcher(`${SHIFT_ENDPOINT}/${id}`)
   .delete());
+
+export const publishShift = () => handleResponse(fetcher(`${PUBLISH_SHIFT_ENDPOINT}`)
+  .get());

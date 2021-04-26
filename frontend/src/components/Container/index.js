@@ -1,18 +1,18 @@
 import React, { useCallback } from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu } from 'antd';
 import {
   UserOutlined,
   ScheduleOutlined,
   LogoutOutlined,
 } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { JWT } from 'constants/env';
 import { routes } from 'constants/routes';
 
-import styles from './styles.css';
+import './styles.css';
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
