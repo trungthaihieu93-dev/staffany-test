@@ -1,102 +1,108 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import {
   Skeleton,
   Button,
-  Divider,
-  Typography
+  Typography,
+  Modal,
 } from 'antd';
-import { useHistory, Route } from 'react-router-dom';
 
-import {
-  SHIFT_ID,
-} from 'constants/fields';
-import { routes } from 'constants/routes';
 import Error from 'components/Error';
-import ShiftForm from 'screens/ShiftForm';
+import ShiftForm from 'components/ShiftForm';
 import withLayout from 'HOCs/withLayout';
 import useHooks from 'hooks/useShifts';
 
 import './styles.css';
-import ShiftItem from './ShiftItem';
+import WeeklySchedule from './WeeklySchedule';
 
 const { Title } = Typography;
 
 function Shifts() {
-  const history = useHistory();
   const {
     state: {
       shifts,
       shiftData,
       shiftsError,
+      loading,
+      isShiftFormVisible,
+      isUpdating,
+      shift,
     },
     handler: {
       handlePublish,
+      setShift,
+      setUpdating,
+      handleSubmit,
+      handleDelete,
+      handleChangeForm,
+      handleCloseForm,
+      setShiftFormVisibility,
     },
   } = useHooks();
 
-  const handleClick = useCallback((id) => {
-    history.push(`${routes.shifts}/${id}`);
-  }, [history]);
-
   return (
-    <div className="container">
-      <div className="cols">
-        <div className="buttons">
-          <Button
-            onClick={() => history.push(`${routes.shifts}/new`)}
-          >
-            + Add New Shift
-          </Button>
-        </div>
-        {
-          shifts || shiftsError
-            ? shifts
-              ? shifts.length !== 0
-                ? (
-                  <div className="shifts">
-                    {
-                      shiftData?.map((data) => (
-                        <div key={data.from} className="weekContainer">
-                          <div className="weekHeader">
-                            <Title level={4}>
-                              {data.from} -{'>'} {data.to}
-                            </Title>
-                            <Button
-                              style={{ marginLeft: '20px' }}
-                              type="primary"
-                              onClick={() => handlePublish(data.shifts)}
-                              disabled={data.isPublished}
-                            >
-                              Publish
-                            </Button>
-                          </div>
-                          {
-                            data?.shifts?.map((shift) => (
-                              <>
-                                <ShiftItem
-                                  key={shift[SHIFT_ID]}
-                                  shift={shift}
-                                  onClick={() => handleClick(shift[SHIFT_ID])}
-                                />
-                                <Divider />
-                              </>
-                            ))
-                          }
+    <div className="shiftsContainer">
+      <div className="buttons">
+        <Button
+          onClick={() => setShiftFormVisibility(true)}
+        >
+          + Add New Shift
+        </Button>
+      </div>
+      {
+        shifts || shiftsError
+          ? shifts
+            ? shifts.length !== 0
+              ? (
+                <div className="scheduleContainer">
+                  {
+                    shiftData.map((data) => (
+                      <div className="schedule">
+                        <div className="scheduleHeader">
+                          <Title level={5}>
+                            {data.from.format('ddd, MMM Do')}/{data.to.format('ddd, MMM Do')}
+                          </Title>
+                          <Button
+                            className="publishButton"
+                            disabled={data.isPublished}
+                            onClick={() => handlePublish(data.shifts)}
+                          >
+                            Publish
+                        </Button>
                         </div>
-                      ))
-                    }
-                  </div>
-                )
-                : <Error error="No shifts added" />
-              : <Error error="Error while getting data!" />
-            : <Skeleton />
-        }
-      </div>
-      <div className="cols">
-        <Route path={`${routes.shifts}/:id`} component={ShiftForm} />
-      </div>
-
-    </div>
+                        <WeeklySchedule
+                          {...data}
+                          key={data.week}
+                          onClickShift={(shift) => {
+                            setShiftFormVisibility(true);
+                            setShift(shift);
+                            setUpdating(true);
+                          }}
+                        />
+                      </div>
+                    ))
+                  }
+                </div>
+              )
+              : <Error error="No shifts added" />
+            : <Error error="Error while getting data!" />
+          : <Skeleton />
+      }
+      <Modal
+        visible={isShiftFormVisible}
+        okButtonProps={{ style: { display: 'none' } }}
+        cancelButtonProps={{ style: { display: 'none' } }}
+        onCancel={handleCloseForm}
+      >
+        <ShiftForm
+          shift={shift}
+          handleSubmit={handleSubmit}
+          handleDelete={handleDelete}
+          handleChangeForm={handleChangeForm}
+          loading={loading}
+          isUpdating={isUpdating}
+        />
+      </Modal>
+    </div >
   );
 }
 

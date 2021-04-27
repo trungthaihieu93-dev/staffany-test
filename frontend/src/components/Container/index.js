@@ -75,7 +75,7 @@ export default function Container({ title, children }) {
               </SubMenu>
             </Menu>
           </Sider>
-          <Content style={{ padding: '0 24px', minHeight: '80vh' }}>
+          <Content style={{ padding: '0 24px', minHeight: '85vh' }}>
             {children}
           </Content>
         </Layout>

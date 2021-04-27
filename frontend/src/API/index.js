@@ -4,7 +4,7 @@ export const handleResponse = async (fetchingResponse) => {
   const response = await fetchingResponse;
 
   if (!response.ok) {
-    const { statusCode, error, message } = await response.json();
+    const { statusCode, message } = await response.json();
 
     const thrownErr = new Error();
     thrownErr.message = message;
