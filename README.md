@@ -28,7 +28,7 @@ At source folder, run this command:
 
 After installing packages, run this command:
 
-> strapi build && strapi develop
+> npm run build && npm run develop
 
 The development server should be available at [Server](http://localhost:1337/).
 
@@ -42,7 +42,7 @@ At source folder, run this command:
 
 After installing packages, run this command:
 
-> yarn start
+> npm run start
 
 The development server should be available at [Dashboard](http://localhost:3000/).
 
