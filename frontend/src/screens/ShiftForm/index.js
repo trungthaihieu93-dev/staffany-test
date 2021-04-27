@@ -7,7 +7,8 @@ import {
   SHIFT_NAME,
   SHIFT_DATE,
   SHIFT_START_TIME,
-  SHIFT_END_TIME
+  SHIFT_END_TIME,
+  SHIFT_STATUS
 } from 'constants/fields';
 import useHooks from 'hooks/useShiftForm';
 
@@ -57,6 +58,7 @@ const ShiftForm = () => {
           placeholder="Shift name..."
           value={shift[SHIFT_NAME]}
           onChange={(evt) => handleChangeForm(SHIFT_NAME, evt.target.value)}
+          disabled={shift[SHIFT_STATUS] === 'published'}
         />
       </Form.Item>
       <Form.Item
@@ -68,6 +70,7 @@ const ShiftForm = () => {
           placeholder="Shift date..."
           value={shift[SHIFT_DATE]}
           onChange={(evt) => handleChangeForm(SHIFT_DATE, evt.target.value)}
+          disabled={shift[SHIFT_STATUS] === 'published'}
         />
       </Form.Item>
       <Form.Item
@@ -79,6 +82,7 @@ const ShiftForm = () => {
           placeholder="Shift start time..."
           value={shift[SHIFT_START_TIME]}
           onChange={(evt) => handleChangeForm(SHIFT_START_TIME, evt.target.value)}
+          disabled={shift[SHIFT_STATUS] === 'published'}
         />
       </Form.Item>
       <Form.Item
@@ -90,6 +94,7 @@ const ShiftForm = () => {
           placeholder="Shift end time..."
           value={shift[SHIFT_END_TIME]}
           onChange={(evt) => handleChangeForm(SHIFT_END_TIME, evt.target.value)}
+          disabled={shift[SHIFT_STATUS] === 'published'}
         />
       </Form.Item>
 
@@ -99,6 +104,7 @@ const ShiftForm = () => {
           htmlType="submit"
           onClick={handleSubmit}
           loading={loading}
+          disabled={shift[SHIFT_STATUS] === 'published'}
         >
           {id === 'new' ? 'Create' : 'Update'}
         </Button>
@@ -110,6 +116,7 @@ const ShiftForm = () => {
               htmlType="submit"
               loading={loading}
               onClick={handleDelete}
+              disabled={shift[SHIFT_STATUS] === 'published'}
             >
               Delete
             </Button>

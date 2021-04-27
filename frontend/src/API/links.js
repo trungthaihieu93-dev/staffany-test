@@ -1,7 +1,7 @@
 import qs from 'qs';
 
 import {
-  CREATED_AT,
+  SHIFT_WEEK
 } from 'constants/fields';
 
 import {
@@ -15,7 +15,7 @@ const filters = {
 };
 
 export const getShiftLink = () => `${SHIFT_ENDPOINT}?${qs.stringify({
-  [filters.sort]: `${CREATED_AT}:${filters.desc}`,
+  [filters.sort]: `${SHIFT_WEEK}:${filters.asc}`,
 })}`;;
 
 export const getShiftFormLink = (id) => `${SHIFT_ENDPOINT}/${id}`;

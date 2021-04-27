@@ -1,5 +1,10 @@
 import React, { useCallback } from 'react';
-import { Skeleton, Button, Divider } from 'antd';
+import {
+  Skeleton,
+  Button,
+  Divider,
+  Typography
+} from 'antd';
 import { useHistory, Route } from 'react-router-dom';
 
 import {
@@ -14,11 +19,14 @@ import useHooks from 'hooks/useShifts';
 import './styles.css';
 import ShiftItem from './ShiftItem';
 
+const { Title } = Typography;
+
 function Shifts() {
   const history = useHistory();
   const {
     state: {
       shifts,
+      shiftData,
       shiftsError,
     },
     handler: {
@@ -39,13 +47,6 @@ function Shifts() {
           >
             + Add New Shift
           </Button>
-          <Button
-            style={{ marginLeft: '20px' }}
-            type="primary"
-            onClick={handlePublish}
-          >
-            Publish
-      </Button>
         </div>
         {
           shifts || shiftsError
@@ -54,15 +55,34 @@ function Shifts() {
                 ? (
                   <div className="shifts">
                     {
-                      shifts.map((shift) => (
-                        <>
-                          <ShiftItem
-                            key={shift[SHIFT_ID]}
-                            shift={shift}
-                            onClick={() => handleClick(shift[SHIFT_ID])}
-                          />
-                          <Divider />
-                        </>
+                      shiftData?.map((data) => (
+                        <div key={data.from} className="weekContainer">
+                          <div className="weekHeader">
+                            <Title level={4}>
+                              {data.from} -{'>'} {data.to}
+                            </Title>
+                            <Button
+                              style={{ marginLeft: '20px' }}
+                              type="primary"
+                              onClick={() => handlePublish(data.shifts)}
+                              disabled={data.isPublished}
+                            >
+                              Publish
+                            </Button>
+                          </div>
+                          {
+                            data?.shifts?.map((shift) => (
+                              <>
+                                <ShiftItem
+                                  key={shift[SHIFT_ID]}
+                                  shift={shift}
+                                  onClick={() => handleClick(shift[SHIFT_ID])}
+                                />
+                                <Divider />
+                              </>
+                            ))
+                          }
+                        </div>
                       ))
                     }
                   </div>

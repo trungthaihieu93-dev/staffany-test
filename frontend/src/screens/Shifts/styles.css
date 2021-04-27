@@ -11,4 +11,15 @@
   min-height: 500px;
   max-height: 80vh;
   overflow: auto;
+  padding: 20px;
+}
+
+.weekContainer {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.weekHeader {
+  display: flex;
+  flex-direction: row;
 }

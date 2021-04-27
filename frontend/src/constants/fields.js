@@ -15,6 +15,8 @@ export const SHIFT_NAME = 'name';
 export const SHIFT_DATE = 'date';
 export const SHIFT_START_TIME = 'startTime';
 export const SHIFT_END_TIME = 'endTime';
+export const SHIFT_STATUS = 'status';
+export const SHIFT_WEEK = 'week';
 
 // General
 export const CREATED_AT = 'created_at';

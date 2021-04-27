@@ -1,8 +1,20 @@
-import { useCallback, useEffect, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useState,
+  useMemo,
+} from 'react';
 import useSWR, { mutate } from 'swr';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import moment from 'moment';
 
+import {
+  SHIFT_ID,
+  SHIFT_WEEK,
+  SHIFT_DATE,
+  SHIFT_STATUS,
+} from 'constants/fields';
 import { getShiftLink } from 'API/links';
 import { useGetFetcher } from 'API/utils';
 import { publishShift } from 'API/services';
@@ -31,11 +43,46 @@ const useHooks = () => {
     return () => unlisten();
   }, [history]);
 
-  const handlePublish = useCallback(async () => {
+  // recalculated shift data
+  const shiftData = useMemo(() => {
+    if (!shifts) {
+      return [];
+    }
+
+    const getWeekRange = (day) => ({
+      from: moment(day).startOf('isoWeek').format('MMM, Do YYYY'),
+      to: moment(day).endOf('isoWeek').format('MMM, Do YYYY'),
+    });
+
+    const output = [];
+    let week = -1;
+    let index = -1;
+
+    shifts.forEach((shift) => {
+      if (shift[SHIFT_WEEK] !== week) {
+        week = shift[SHIFT_WEEK];
+        index++;
+        output.push({
+          ...(getWeekRange(shift[SHIFT_DATE])),
+          shifts: [],
+          isPublished: shift[SHIFT_STATUS] === 'published'
+        });
+      }
+
+      output[index].shifts.push(shift);
+    });
+
+    return output;
+  }, [shifts]);
+
+
+  const handlePublish = useCallback(async (shifts) => {
     try {
       setLoading(true);
 
-      await publishShift();
+      await publishShift({
+        shifts: shifts.map((shift) => shift[SHIFT_ID]),
+      });
 
       mutate(getShiftLink());
 
@@ -50,6 +97,7 @@ const useHooks = () => {
   return {
     state: {
       shifts,
+      shiftData,
       shiftsError,
       loading,
     },

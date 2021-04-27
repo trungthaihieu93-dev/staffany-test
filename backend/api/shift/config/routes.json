@@ -49,7 +49,7 @@
       }
     },
     {
-      "method": "GET",
+      "method": "POST",
       "path": "/shifts/publish",
       "handler": "shift.publish",
       "config": {

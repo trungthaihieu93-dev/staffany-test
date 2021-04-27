@@ -17,7 +17,8 @@
       "enum": [
         "pending",
         "published"
-      ]
+      ],
+      "default": "pending"
     },
     "name": {
       "type": "string"
@@ -35,6 +36,9 @@
       "plugin": "users-permissions",
       "model": "user",
       "via": "shifts"
+    },
+    "week": {
+      "type": "integer"
     }
   }
 }

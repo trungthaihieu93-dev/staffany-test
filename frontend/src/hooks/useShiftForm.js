@@ -9,7 +9,9 @@ import {
   SHIFT_NAME,
   SHIFT_DATE,
   SHIFT_START_TIME,
-  SHIFT_END_TIME
+  SHIFT_END_TIME,
+  SHIFT_STATUS,
+  SHIFT_WEEK
 } from 'constants/fields';
 import { routes } from 'constants/routes';
 
@@ -28,7 +30,8 @@ const initialShift = {
   [SHIFT_NAME]: '',
   [SHIFT_DATE]: today,
   [SHIFT_START_TIME]: '00:00',
-  [SHIFT_END_TIME]: '01:00'
+  [SHIFT_END_TIME]: '01:00',
+  [SHIFT_STATUS]: 'pending'
 }
 
 const useHooks = (shiftId) => {
@@ -98,6 +101,7 @@ const useHooks = (shiftId) => {
         [SHIFT_DATE]: shift[SHIFT_DATE],
         [SHIFT_START_TIME]: shift[SHIFT_START_TIME],
         [SHIFT_END_TIME]: shift[SHIFT_END_TIME],
+        [SHIFT_WEEK]: moment(shift[SHIFT_DATE]).isoWeek(),
       }
 
       if (shiftId === 'new') {
