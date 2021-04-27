@@ -116,7 +116,7 @@ const useHooks = (shiftId) => {
       history.replace(routes.shifts);
     } catch (error) {
       setLoading(false);
-      toast(error, { type: 'error' });
+      toast(error.message, { type: 'error' });
     }
   }, [history, shift, shiftId]);
 
@@ -130,7 +130,7 @@ const useHooks = (shiftId) => {
       history.replace(routes.shifts);
     } catch (error) {
       setLoading(false);
-      toast(error, { type: 'error' });
+      toast(error.message, { type: 'error' });
     }
   }, [history, shift]);
 

@@ -4,6 +4,7 @@ import {
   PushpinFilled,
   EditFilled,
 } from '@ant-design/icons';
+import moment from 'moment'
 
 import {
   SHIFT_ID,
@@ -34,7 +35,7 @@ export default function ShiftItem({ shift, onClick }) {
     <div onClick={onClick} className="shiftItem">
       <Title level={3}>{shift[SHIFT_NAME]}</Title>
       <Title level={4}>
-        <b>At:</b> {shift[SHIFT_DATE]}
+        <b>At:</b> {moment(shift[SHIFT_DATE]).format('ddd, MMM Do YYYY')}
       </Title>
       <Title level={5}>
         <b>From:</b> {shift[SHIFT_START_TIME]} - <b>To:</b> {shift[SHIFT_END_TIME]}

@@ -1,17 +1,15 @@
 import { JWT } from 'constants/env';
-import {
-  ERR_MESSAGE, ERR_STATUS,
-} from 'constants/fields';
-import { getResponseMessage } from 'utils/response';
 
 export const handleResponse = async (fetchingResponse) => {
   const response = await fetchingResponse;
 
   if (!response.ok) {
-    const err = new Error();
-    err[ERR_MESSAGE] = getResponseMessage(response.status);
-    err[ERR_STATUS] = response.status;
-    throw err;
+    const { statusCode, error, message } = await response.json();
+
+    const thrownErr = new Error();
+    thrownErr.message = message;
+    thrownErr.status = statusCode;
+    throw thrownErr;
   }
 
   return response.json();

@@ -88,7 +88,7 @@ const useHooks = () => {
 
       toast('Published shifts successfully!', { type: 'success' });
     } catch (error) {
-      toast(`${error}`, { type: 'error' });
+      toast(error.message, { type: 'error' });
     } finally {
       setLoading(false);
     }
