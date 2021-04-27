@@ -16,6 +16,8 @@ const checkTakePlaceShift = (samedayShifts, startTime, endTime) => {
       return true;
     }
   }
+
+  return false;
 };
 
 module.exports = {
