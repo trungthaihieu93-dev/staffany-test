@@ -6,7 +6,7 @@ system.
 
 The backend is built by Strapi, a Headless-CMS framework.
 
-The frontend is build with ReactJS and corresponsing libraries.
+The frontend is build with ReactJS and corresponding libraries.
 
 ## Prerequisites
 
